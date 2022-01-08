@@ -1,3 +1,6 @@
+var storedBlocks = [];
+var storedBlocks_NAME = "Stored Blocks";
+
 // display current date at top of page
 var date = new Date();
 var todaysDate = date.toDateString();
@@ -53,14 +56,60 @@ const hour4 = $('#4-pm').text();
 const hour5 = $('#5-pm').text();
 const hour6 = $('#6-pm').text();
 
-// store input to local storage
-$('#saveBtn').click(function(){
-    if($('#todo').val()) {
-        localStorage.removeItem('todo');
+const hour8Input = parseInt(hour8);
+
+// // store input to local storage
+// $('#saveBtn8').click(function(){
+//     if($('#todo8').val()) {
+//         localStorage.removeItem('todo8');
+//     }
+
+//     localStorage.setItem("todo", JSON.stringify(hour8));
+//     console.log(hour8String);
+//     console.log(localStorage.setItem("todo", JSON.stringify(hour8)))
+// });
+
+// edit stored time blocks
+function editBlocks(pText, pID) {
+    nBlock = {
+        id: pID,
+        input: pText.trim()
     }
 
-    const hourString = JSON.stringify(hour8);
-    localStorage.setItem(hour8, $('#todo').val());
-});
+    for (var i=0; i<storedBlocks.length; i++) {
+        if(storedBlocks[i].id === nBlock.id) {
+            storedBlocks.splice(i,1);
+            localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));
+            return null;
+        }
+    }
+    storedBlocks.push(nBlock);
+    localStorage.setItem(storedBlocks_NAME, JSON.stringify(storedBlocks));
+};
+
+function getStoredBlockTxt() {
+    if(localStorage.getItem(storedBlocks_NAME)) {
+        storedBlocks = JSON.parse(localStorage.getItem(storedBlocks_NAME));
+        storedBlocks.forEach(iBlock => {
+            iID = "#" + iBlock.id;
+            $iBlock = $(document.getElementById(iBlock.id));
+            $iBlock.val(iBlock.innput);
+
+            
+        });
+    }
+};
+
 
 colorCodeTime();
+getStoredBlockTxt();
+
+// when the save button is clicked, it should trigger to update/save the updated input
+$(".saveBtn").click(function(){
+    console.log("save clicked");
+    $(this).toggleClass('unlocked');
+    $iTextArea = $($(this).parent().children()[1]);
+    iInput= document.getElementsByClassName("textarea").val(text);
+    iID = document.getElementsByClassName("textarea").attr("id");
+    editBlocks(iInput, iID);
+});
