@@ -11,4 +11,4 @@
 ### After user inputs text in a timeblock, user should be able to hit "save" button to save inputs to local storage & inputed text should remain even if the page is refreshed
 
 ## URL: https://demkoa01.github.io/Daily-Planner/
-## Web Page Screenshot: ![Alt Image text](/assets/ScreenShot.JPG "Screenshot")
+## Web Page Screenshot: ![ScreenShot](https://user-images.githubusercontent.com/93881224/148669031-bb6dfa2f-a258-4853-b231-1c63822a2aa0.JPG)
